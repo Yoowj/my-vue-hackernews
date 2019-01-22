@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My TODO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script></script>
+    <style>
+
+        #app {
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 60px;
+        }
+
+        .todo-item-container {
+            border: 1px #a0a0a0 solid;
+            border-bottom: 0px;
+            padding: 0.6rem;
+
+        }
+
+        .todo-item-container:last-child {
+            border: 1px #a0a0a0 solid;
+        }
+
+        .todo-item-container:hover {
+            background-color: #efefef;
+        }
+
+        .todo-item-container button {
+            position: absolute;
+            right:10px;
+            width: 3rem;
+            height: 1.5rem;
+        }
+
+        .todo-item-container input[type='checkbox'] {
+            position: absolute;
+            left: 10px;
+        }
+        .todo-container {
+            position: relative;
+            margin: 10px;
+            width:50%;
+            margin:0 auto;
+        }
+
+        .todo-list-container {
+
+        }
+
+
+        .complete span {
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h2>TODO!!!</h2>
+        <div class="todo-container">
+            <div class="todo-input-container">
+                <input v-model="todoContents"/>
+                <button @click="addButtonClickListener()">추가</button>
+            </div>
+            <div class="todo-list-container">
+                <template v-for="todo in todoList">
+                    <div v-bind:todo-id="todo.id" class="todo-item-container" v-bind:class="{ complete: todo.isComplete }">
+                        <input type="checkbox" :checked="todo.isComplete" @click="todo.isComplete = !todo.isComplete" >
+                        <span>{{ todo.contents }}</span>
+                        <button @click="deleteTodo(todo.id)">삭제</button>
+                    </div>
+                </template>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>
+<script>
+    var a = new Vue({
+        el: '#app',
+        data: {
+            todoContents: "",
+            todoList: [
+                {
+                    id: '1',
+                    contents: 'Todo Item 1',
+                    isComplete: true
+                },
+                {
+                    id: '2',
+                    contents: 'Todo Item 2',
+                    isComplete: false
+                }
+            ],
+            idSequence: 4
+        },
+        methods: {
+            addButtonClickListener() {
+                if(this.todoContents === "") {
+                    alert("내용을 입력하세요.")
+                    return;
+                }
+                this.todoList.push({
+                    id: this.idSequence,
+                    contents: this.todoContents,
+                    isComplete: false,
+                })
+
+                this.idSequence += 1
+                this.todoContents = ""
+            },
+            deleteTodo(id) {
+                let todoRef = null;
+                for (iter in this.todoList) {
+                    if(iter.id === id) {
+                        todoRef = iter;
+                        return;
+                    }
+                    
+
+                }
+
+                this.todoList.pop(todoRef);
+            },
+            test(a) {
+                
+            }
+        },
+    });
+</script>
