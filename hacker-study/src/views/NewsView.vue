@@ -1,7 +1,7 @@
 <template>
     <div>
         
-        <div v-for="item in news" :key="item.id">
+        <!--<div v-for="item in news" :key="item.id">
             <a :href="item.url">
                 <v-hover>
                     <v-card
@@ -22,7 +22,28 @@
                     </v-card>
                 </v-hover>
             </a>
-        </div>
+        </div>-->
+        <v-list two-line>
+            <template v-for="(item, index) in news">
+                <v-list-tile :key="index" avatar ripple @click="">
+                    <v-list-tile-content>
+                        <v-list-tile-title>
+                            {{item.title}}
+                        </v-list-tile-title>
+                        <v-list-title-sub-title class="text--primary">
+                            {{ item.user }}
+                        </v-list-title-sub-title>
+                    </v-list-tile-content>
+                    <v-list-tile-action>
+                        <v-list-tile-action-text> {{ item.time_ago }} </v-list-tile-action-text>
+                        <v-icon color="grey lighten-1">star_border</v-icon>
+                    </v-list-tile-action>
+                </v-list-tile>
+                <v-divider v-if="index + 1 < news.length" :key="`divider-${index}`"></v-divider>
+
+            </template>
+        </v-list>
+        
            
     </div>
 </template>
