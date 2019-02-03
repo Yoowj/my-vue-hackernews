@@ -2,17 +2,21 @@
   <v-app>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
+        <span>VUE STUDY </span>
+        <span class="font-weight-light">HACKERNEWS</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
+      <v-toolbar-items>
+        <v-btn to="/news" flat>
+          <span>NEWS</span>
+        </v-btn>    
+        <v-btn to="/asks" flat>
+          <span>ASK</span>
+        </v-btn>
+        <v-btn to="jobs" flat>
+          <span>JOBS</span>
+        </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
 
     <v-content class="my-content">
@@ -78,16 +82,16 @@ export default {
     top: 47%;
     left: 47%;
   
-  a
-    text-decoration: none
-    color: #000
+  // a
+  //   text-decoration: none
+  //   color: #000
     
-    &:hover 
-      color: #42b883
-      text-decoration: underline
+  //   &:hover 
+  //     color: #42b883
+  //     text-decoration: underline
     
-    &.router-link-exact-active 
-      text-decoration: underline;
+  //   &.router-link-exact-active 
+  //     text-decoration: underline;
     
 
 </style>
