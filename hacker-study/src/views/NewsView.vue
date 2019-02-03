@@ -1,0 +1,67 @@
+<template>
+    <div>
+        
+        <div v-for="item in news" :key="item.id">
+            <a :href="item.url">
+                <v-hover>
+                    <v-card
+                        slot-scope="{ hover }"
+                        :class="`elevation-${hover ? 12 : 2}`"
+                        class="mx-auto"
+                        width="100%"
+                    >
+                    <div class="list-item-container">
+                        <div class="point-container">
+                            {{ item.points }}
+                        </div>
+                        <div class="content-container">
+                            <p>{{ item.title}}</p>
+                            <span>{{item.time_ago}} created by {{item.user}} </span>
+                        </div>
+                    </div>
+                    </v-card>
+                </v-hover>
+            </a>
+        </div>
+           
+    </div>
+</template>
+
+<script>
+import { fetchNewsList } from '../api/index.js'
+import bus from '../bus/bus.js'
+
+
+export default {
+    data() {
+        return {
+            news: []
+        }
+    },
+    created() {
+        console.log(fetchNewsList);
+        bus.$emit('start:spinner');
+        fetchNewsList()
+            .then(response => {
+                this.news = response.data;
+                bus.$emit('stop:spinner');
+            })
+    },
+}
+</script>
+
+<style scoped lang="stylus">
+    .list-item-container 
+        display flex
+        margin 20px 20px
+        width 100%
+        div
+            justify-content center
+    
+    .point-container
+        width 60px
+        height 60px
+        display flex
+        align-items center
+        align-content center
+</style>
